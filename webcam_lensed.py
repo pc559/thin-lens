@@ -1,6 +1,17 @@
+# This code uses a precomputed mapping from a source plane
+# to an observer plane to warp input from a webcam.
+# I'm not sure how unviversal the webcam interface is, but it works on Ubuntu on my laptop.
+# The lens is elliptical, a Gaussian peaked at the origin.
+# The mapping was computed using the thin lens approximation.
+
+# 'g' toggles a grid.
+# 'c' toggles colour in each quadrant.
+# 'l' toggles the lens.
+
 # THINGS TO ADD
 # Close window on clicking the x? At the moment it just reappears, only way to exit is through esc.
 # Side-on view, showing actual geodesics.
+# There isn't really any reason to use the thin lens approximation if you just precompute the geodesics.
 # Move lens with mouse, or stacking multiple lenses on click.
 # Make into some sort of game.
 # Lens actual picture of galaxies.
@@ -12,7 +23,7 @@ import cv2
 cv2.namedWindow("window")
 vc = cv2.VideoCapture(0)
 
-if vc.isOpened(): # try to get the first frame
+if vc.isOpened():
     rval, frame = vc.read()
 else:
     rval = False
@@ -24,7 +35,7 @@ N = 480 # Size of lens is N*N
 # Load in prev calc'd lens mapping.
 # Let I = [-1,1].
 # Lens mapping was IXI -> IXI,
-# so need to rescale to [0,W]X[0,L]
+# so need to rescale to [0,W]X[0,L] (pixels)
 lens_mapping = np.load('lens_mapping_480.npy')
 lens_mapping[:,:,0] = np.round((lens_mapping[:,:,0]+1)*0.5*W)
 lens_mapping[:,:,1] = np.round((lens_mapping[:,:,1]+1)*0.5*L)
