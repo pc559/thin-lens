@@ -19,6 +19,8 @@
 
 import numpy as np
 import cv2
+import sys
+mapping_file = sys.argv[1]
 
 cv2.namedWindow("window")
 vc = cv2.VideoCapture(0)
@@ -31,12 +33,12 @@ else:
 W = np.shape(frame)[0]
 L = np.shape(frame)[1]
 
-N = 480 # Size of lens is N*N
 # Load in prev calc'd lens mapping.
 # Let I = [-1,1].
 # Lens mapping was IXI -> IXI,
 # so need to rescale to [0,W]X[0,L] (pixels)
-lens_mapping = np.load('lens_mapping_480.npy')
+lens_mapping = np.load(mapping_file)
+N = lens_mapping.shape[0]
 lens_mapping[:,:,0] = np.round((lens_mapping[:,:,0]+1)*0.5*W)
 lens_mapping[:,:,1] = np.round((lens_mapping[:,:,1]+1)*0.5*L)
 lens_mapping = lens_mapping.astype(int) # Discrete pixels
