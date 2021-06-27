@@ -2,7 +2,8 @@
 
 Code thrown together for a Cambridge open day, to demonstrate how images
 of objects in space (such as galaxies) can be lensed by the gravity
-of intervening mass.
+of intervening mass. Requires opencv-python.
+Recently converted to python3, might still be a little buggy!
 
 Main file is "webcam_lensed.py", it lenses the image coming from a webcam.
 The keys l,g,c all toggle different features.
