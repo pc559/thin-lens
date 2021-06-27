@@ -49,22 +49,23 @@ rescaled_mapping = rescaled_mapping[:,0]+rescaled_mapping[:,1]*N
 lens_mapping = lens_mapping[:,0]*L+lens_mapping[:,1]
 
 inds = np.arange(W*L)
-l_tenths = (((inds%L)%(L/10))<2) + (((inds%L)%(L/10))==(L/10)-1)
-w_tenths = ((((inds-inds%L)/L)%(W/10))<2) + ((((inds-inds%L)/L)%(W/10))==(W/10)-1)
+N_spacing = 10
+l_tenths = (((inds%L)%(L/N_spacing))<2) + (((inds%L)%(L/N_spacing))==(L/N_spacing)-1)
+w_tenths = ((((inds-inds%L)/L)%(W/N_spacing))<2) + ((((inds-inds%L)/L)%(W/N_spacing))==(W/N_spacing)-1)
 
 lgrid = (l_tenths!=0)
 wgrid = (w_tenths!=0)
 
-top = slice(0,W/2)
-left = slice(0,L/2)
-bottom = slice(W/2+1,-1)
-right = slice(L/2+1,-1)
+top = slice(0,W//2)
+left = slice(0,L//2)
+bottom = slice(W//2+1,-1)
+right = slice(L//2+1,-1)
 
 reindexing = lens_mapping[rescaled_mapping]
 lensing = True
 grid = False
 colours = False
-print 'Press ESC to quit'
+print('Press ESC to quit')
 while rval:
     frame = frame[:,::-1]           # Mirror the image
     if colours:
@@ -92,9 +93,9 @@ while rval:
     elif key == 99:
         colours = not colours
     elif key != -1:
-        print key
-        print 'Press ESC to quit'
+        print(key)
+        print('Press ESC to quit')
     elif cv2.getWindowProperty('window', 0) != 0:
-        print cv2.getWindowProperty('window', 0)
+        print(cv2.getWindowProperty('window', 0))
 
 cv2.destroyWindow("window")

@@ -90,7 +90,7 @@ ps = np.linspace(-1,1,Ns)
 integr_coords = np.array([ [ps[i],ps[j]] for j in range(Ns) for i in range(Ns) ])
 integr_surface = np_surface_density(integr_coords)
 t2 = time()
-print t2-t1
+print(t2-t1)
 ###########################################################################################
 
 #### Compute thin lens integral for each point in sky #####################################
@@ -100,8 +100,8 @@ t4 = time()
 t=0
 res_distr = np_col_func(t,defl_coords_array)
 t5 = time()
-print t4-t3
-print t5-t4
+print(t4-t3)
+print(t5-t4)
 ###########################################################################################
 
 #### Plotting #############################################################################
